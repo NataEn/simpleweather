@@ -1,12 +1,12 @@
 let makeItRain = function() {
   //clear out everything
-  document.querySelector(".rain").innerHTML = "";
-  //   $(".rain").empty();
+  document.querySelector(".rain").innerHTMl = "";
+  // $('.rain').empty();
 
   let increment = 0;
   let drops = "";
   let backDrops = "";
-  console.log("entered rain");
+
   while (increment < 100) {
     //couple random numbers to use for various randomizations
     //random number between 98 and 1
@@ -53,7 +53,10 @@ let makeItRain = function() {
       randoHundo +
       's;"></div></div>';
   }
-
-  document.querySelector(".rain.front-row").appendChild(drops);
-  document.querySelector(".rain.back-row").appendChild(backDrops);
+  document.querySelector(".rain.front-row").innerHTML = drops;
+  // $('.rain.front-row').append(drops);
+  document.querySelector(".rain.back-row").innerHTML = backDrops;
+  // $('.rain.back-row').append(backDrops);
 };
+
+makeItRain();
