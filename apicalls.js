@@ -52,7 +52,6 @@ document.querySelector("input").addEventListener("change", event => {
 });
 function fetchLocationWeather(e) {
   let pickedLocations = document.querySelectorAll("#countryData li");
-  const localtime = e.target.dataset;
   if (pickedLocations) {
     fetch(
       baseWeatherUrl +
@@ -67,8 +66,7 @@ function fetchLocationWeather(e) {
         return response.json();
       })
       .then(json => {
-        console.log(json);
-        updateWeatherPanel(json, localtime);
+        updateWeatherPanel(json, e.target.dataset);
       })
       .catch(error => {
         console.error("There has been a problem with fetching data:", error);
@@ -82,7 +80,6 @@ function updatePickedTime(data) {
   const pickedHours = hours[0] === "0" ? parseInt(hours[1]) : parseInt(hours);
   const pickedMinutes =
     minutes[0][0] === "0" ? parseInt(minutes[0][1]) : parseInt(minutes[0][0]);
-
   const currentTimeHours = new Date().getHours() + pickedHours;
   const currentTimeMinutes = new Date().getMinutes() + pickedMinutes;
   return {
@@ -91,17 +88,119 @@ function updatePickedTime(data) {
     minutes: currentTimeMinutes
   };
 }
+function updateBackground(weatherCode) {
+  console.log("entered background update", weatherCode);
+  let picture = document.querySelector("picture");
+  let code = weatherCode;
+  let weather = "";
+  switch (true) {
+    case code >= 200 && code <= 232:
+      weather = "Thunderstorm";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/thunderstorm.webp")'
+      );
+      break;
+    case code >= 300 && code <= 321:
+      weather = "Drizzle";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/drizzle.webp")'
+      );
+      break;
+    case code >= 500 && code <= 531:
+      weather = "Rain";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/rain.webp")'
+      );
+      break;
+    case code >= 600 && code <= 622:
+      weather = "Snow";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/snow.webp")'
+      );
+      break;
+    case code >= 701 && code <= 741:
+      weather = "Fogg";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/fogg.webp")'
+      );
+      break;
+    case code >= 751 && code <= 761:
+      weather = "Sand";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/sandstorm.webp")'
+      );
+      break;
+    case code === 762:
+      weather = "Volcanic ash";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/volcano.webp")'
+      );
+      break;
+    case code === 781:
+      weather = "Tornado";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/tornado.webp")'
+      );
+      break;
+    case code === 800:
+      weather = "Clear";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/clear.webp")'
+      );
+      console.log(weather);
+      break;
+    case code >= 801 && code <= 804:
+      weather = "Cloudes";
+      console.log(weather);
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/cloudy.webp")'
+      );
+      break;
+    default:
+      picture.setAttribute(
+        "style",
+        'background-image: url("./assets/clear.webp")'
+      );
+  }
+}
 function updateWeatherPanel(weatherObject, data) {
   console.log(weatherObject);
-  console.log(data.time);
+  updateBackground(weatherObject.weather.id);
   let locationTime = updatePickedTime(data);
   //const currentTime=new Date().toLocaleDateString(undefined,{timeStyle:"long",timeZone:"Asia/Kolkata",timeZoneName:"long"})
   const weatherPanel = document.querySelector(".pickedLocationWeather");
+  const locationHeader = document.createElement("h3");
+  locationHeader.innerHTML = `${data.country} <small>${data.capital}</small>`;
   const time = document.createElement("div");
-  time.innerHTML = `<h3>${locationTime.dateString}</h3><p>${locationTime.hours}:${locationTime.minutes}</p>`;
+  time.innerHTML = `<h3>${locationTime.dateString}</h3><p>${
+    locationTime.hours < 10 ? "0" + locationTime.hours : locationTime.hours
+  }:${
+    locationTime.minutes < 10
+      ? "0" + locationTime.minutes
+      : locationTime.minutes
+  }</p>`;
   const description = document.createElement("div");
   description.setAttribute("class", "description");
-  description.innerHTML = `${weatherObject.weather[0].description}`;
+  description.innerHTML = `<img src=\"http://openweathermap.org/img/wn/${weatherObject.weather[0].icon}@2x.png\" alt="icon"/><span>${weatherObject.weather[0].description}</span>`;
   const currentTemp = document.createElement("div");
   currentTemp.setAttribute("class", "currentTemp");
   currentTemp.innerHTML = `Temp: ${weatherObject.main.temp}<small>F</small>`;
@@ -109,6 +208,7 @@ function updateWeatherPanel(weatherObject, data) {
   feelsLike.setAttribute("class", "feelsLike");
   feelsLike.innerHTML = `Feels Like: ${weatherObject.main.feels_like}<small>F</small>`;
   weatherPanel.innerHTML = "";
+  weatherPanel.appendChild(locationHeader);
   weatherPanel.appendChild(time);
   weatherPanel.appendChild(description);
   weatherPanel.appendChild(currentTemp);
