@@ -27,6 +27,9 @@ input:focus {
   display: inline-block;
   border-radius: 2.5px;
 }
+.hide {
+  display: none;
+}
 #countryData {
   position: relative;
   top: -10px;
@@ -37,9 +40,17 @@ input:focus {
   border-radius: 2.5px;
   padding: 1px 1px;
   margin-left: 1rem;
-  height: 50vh;
   width: 70%;
   overflow-y: scroll;
+}
+.pickedLocationWeather {
+  border-radius: 2.5px;
+  padding: 1px 1px;
+  margin: 3rem;
+  padding: 1rem 1.5rem;
+  height: max-content;
+  width: max-content;
+  background-color: rgba(242, 239, 230, 0.7);
 }
 #countryData li {
   padding: 5px 15px;
@@ -49,11 +60,15 @@ input:focus {
 #countryData li:hover {
   background-color: rgba(242, 239, 230, 0.9);
 }
-
+.countries span {
+  padding: 5px 15px;
+  border-radius: 2.5px;
+  letter-spacing: 1px;
+}
 picture {
   display: block;
   width: 80vw;
-  height: 70vh;
+  height: 80vh;
   background-image: url("../assets/wormrain.webp");
   background-size: cover;
   border-radius: 2.5px;
