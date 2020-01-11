@@ -89,7 +89,7 @@ function updatePickedTime(data) {
   };
 }
 function updateBackground(weatherCode) {
-  console.log("entered background update", weatherCode);
+  console.log(weatherCode);
   let picture = document.querySelector("picture");
   let code = weatherCode;
   let weather = "";
@@ -184,7 +184,7 @@ function updateBackground(weatherCode) {
 }
 function updateWeatherPanel(weatherObject, data) {
   console.log(weatherObject);
-  updateBackground(weatherObject.weather.id);
+  updateBackground(weatherObject.weather[0].id);
   let locationTime = updatePickedTime(data);
   //const currentTime=new Date().toLocaleDateString(undefined,{timeStyle:"long",timeZone:"Asia/Kolkata",timeZoneName:"long"})
   const weatherPanel = document.querySelector(".pickedLocationWeather");
