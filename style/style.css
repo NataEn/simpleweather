@@ -24,7 +24,7 @@ input:focus {
   outline: none;
 }
 .countries {
-  display: inline-block;
+  display: block;
   border-radius: 2.5px;
 }
 .hide {
@@ -61,12 +61,19 @@ input:focus {
   background-color: rgba(242, 239, 230, 0.9);
 }
 .countries span {
+  position: relative;
+  z-index: 5;
   padding: 5px 15px;
   border-radius: 2.5px;
   letter-spacing: 1px;
 }
 picture {
-  display: block;
+  display: flex;
+  z-index: -1;
+  position: absolute;
+  top: 5rem;
+  align-items: center;
+  justify-content: center;
   width: 80vw;
   height: 80vh;
   background-image: url("../assets/drizzle.webp");

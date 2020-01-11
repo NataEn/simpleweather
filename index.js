@@ -1,5 +1,5 @@
-const picture = document.querySelector("picture");
-const countryData = document.querySelector("#countryData");
-picture.addEventListener("click", () => {
+const body = document.querySelector("body");
+const countryData = document.querySelector(".countries");
+countryData.addEventListener("click", () => {
   countryData.classList.add("hide");
 });

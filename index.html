@@ -14,27 +14,20 @@
   <body>
     <div class="container">
       <h1>Online World Weather</h1>
-
+      <input
+        id="searchCountry"
+        type="text"
+        placeholder="search country..."
+        name="country"
+      />
+      <div class="countries"><ul id="countryData"></ul></div>
+      <div class="clock"></div>
       <picture class="weatherAnimation">
         <source srcset="./assets/automnday.webp" type="image/webp" />
         <source srcset="img/creakyOldJPEG.jpg" type="image/jpeg" />
         <!--<img src="img/creakyOldJPEG.jpg" alt="Alt Text!" /> -->
-        <input
-          id="searchCountry"
-          type="text"
-          placeholder="search country..."
-          name="country"
-        />
-        <div class="countries"><ul id="countryData"></ul></div>
-        <div class="clock"></div>
-        <div class="pickedLocationWeather">
-          <div class="description"></div>
-          <div class="current_temp"></div>
-          <div class="feelsLike"></div>
-          <div class="cloudesSpread"></div>
-          <div class="sunrise"></div>
-          <div class="sunset"></div>
-        </div>
+
+        <div class="pickedLocationWeather"></div>
       </picture>
       <div class="5-day-chart"></div>
       <div class="map"></div>
